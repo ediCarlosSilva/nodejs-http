@@ -11,9 +11,10 @@
     "pagamentos",
     "api"
   ],
-  "author": "Edi Carlos",
+  "author": "Edi Carlos && juliocvidal(alura)",
   "license": "ISC",
   "dependencies": {
+    "consign": "^0.1.6",
     "express": "^4.16.3"
   }
 }
