@@ -10,7 +10,7 @@ app.listen(3000, function() {
 });
 
 // definindo uma rota de teste... localhost:3000/teste
-app.get('/teste', function(req, res) {
+app.get('/pagamentos', function(req, res) {
     console.log('Recebida requisiçao de teste na porta 3000.');
     res.send('Ok.');
 });
