@@ -14,3 +14,4 @@ create table pagamentos (
 );
 
 show tables;
+desc pagamentos;
