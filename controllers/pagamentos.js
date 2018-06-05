@@ -29,13 +29,18 @@ module.exports = function(app) {
         pagamento.data = new Date;
 
         pagamentoDao.salva(pagamento, function(exception, result) {
-            console.log('pagamento criado: ' + result);
+            if (exception) {
+                console.log('Erro ao inserir no banco: ' + erro);
+                res.status(500).send(erro);
+            } else {
+                console.log('pagamento criado: ' + result);
 
-            res.location('/pagamentos/pagamento/' + result.insertId);
+                res.location('/pagamentos/pagamento/' + result.insertId);
 
-            pagamento.id = result.insertId;
+                pagamento.id = result.insertId;
 
-            res.status(201).json(pagamento);
+                res.status(201).json(pagamento);
+            }
         });
     });
 }
