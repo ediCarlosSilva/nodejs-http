@@ -1,0 +1,36 @@
+/etc - antigamente etecetera
+/etc extended tool chest - ferramentas de extenção
+/etc - editable text configuration - configuração em formato editado de texto
+
+neste diretório vai ter arquivos de configuração
+/etc/X11
+
+/etc/fstab
+/etc/hosts - permite mapear informações importantes ao dns
+/etc/init.d - diretório que contem arquivos que são executados durante o processo de inicialização do computador
+/etc/passwd
+/etc/shadown - é onde estão as senhas criptografadas
+
+passwd - comando para mudar a senha
+
+/media - se mount fixo, drive de cd, dvd que é fixo, monta-se no /media
+
+/mnt - se for pen-drive - temporário geralmente monta no mnt
+
+/home - diretório dos usuários
+
+/root - home do usuário root
+
+cd enter  entra no diretório home
+cd ~ entra no diretório do usuário.
+
+as confugurações estão no diretório /etc
+
+/boot - estão os arquivos que serão carregado durante o boot
+/dev - onde estão as referencias para os nossos devices
+/home - diretório dos usuarios
+/root - diretório home do usuário root
+
+
+
+
