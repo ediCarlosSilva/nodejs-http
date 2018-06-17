@@ -11,11 +11,12 @@ module.exports = function(app) {
     });
 
     app.post('/pagamentos/pagamento', function(req, res) {
-        var pagamento = req.body;
+        var body = req.body;
+        var pagamento = body['pagamento'];
 
-        req.assert('forma_de_pagamento', 'Forma de pagamento é obrigatória').notEmpty();
-        req.assert('valor', 'valor é obrigatório e deve ser um decimal.').notEmpty().isFloat();
-        req.assert('moeda', 'Moeda é obrigatória e deve ter 3 caracteres.').notEmpty().len(3, 3);
+        req.assert('pagamento.forma_de_pagamento', 'Forma de pagamento é obrigatória').notEmpty();
+        req.assert('pagamento.valor', 'valor é obrigatório e deve ser um decimal.').notEmpty().isFloat();
+        req.assert('pagamento.moeda', 'Moeda é obrigatória e deve ter 3 caracteres.').notEmpty().len(3, 3);
 
         var errors = req.validationErrors();
 
@@ -79,7 +80,7 @@ module.exports = function(app) {
                 res.status(500).send(erro);
                 return;
             }
-            console.log('pagamento criado');
+            console.log('pagamento confirmado');
             res.send(pagamento);
         });
 

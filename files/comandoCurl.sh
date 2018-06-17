@@ -18,3 +18,6 @@ curl http://localhost:3000/pagamentos/pagamento -X POST
 # comando curl no windows com cmder
 # não precisa do -X POST, mas se colocar só da warn
 curl http://localhost:3000/pagamentos/pagamento -v -H "Content-type: application/json" -d -@files/pagamento.json
+
+# comando curl para confirmar pagamento usando o metodo PUT do http
+curl -X PUT http://localhost:3000/pagamentos/pagamento/id_do_pagamento
