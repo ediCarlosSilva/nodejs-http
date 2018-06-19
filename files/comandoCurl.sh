@@ -21,3 +21,8 @@ curl http://localhost:3000/pagamentos/pagamento -v -H "Content-type: application
 
 # comando curl para confirmar pagamento usando o metodo PUT do http
 curl -X PUT http://localhost:3000/pagamentos/pagamento/id_do_pagamento
+
+# comando curl para consumir webservice do correio na rota definida pela aplicaçao
+curl -X POST http://localhost:3000/correios/calculo-prazo -H "Content-type: application/json" -d @files/dados-entrega.json
+
+
