@@ -9,6 +9,26 @@ module.exports = function(app) {
         res.send('Ok.');
     });
 
+    app.get('/pagamentos/pagamento/:id', function(req, res) {
+        var id = req.params.id;
+        console.log('consultando pagamento: ' + id);
+
+        var connection = app.persistencia.connectionFactory();
+        var pagamentoDao = new app.persistencia.PagamentoDao(connection);
+
+        pagamentoDao.buscaPorId(id, function(erro, result) {
+            if (erro) {
+                console.log('erro ao consultar o banco: ' + erro);
+                res.status(500).send(erro);
+                return;
+            }
+            // console.log(result);
+            console.log("Pagamento encontrado: " + JSON.stringify(result));
+            res.send(result);
+            return;
+        });
+    })
+
     app.post('/pagamentos/pagamento', function(req, res) {
 
         req.assert('pagamento.forma_de_pagamento', 'Forma de pagamento é obrigatória').notEmpty();

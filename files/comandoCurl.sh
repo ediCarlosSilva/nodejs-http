@@ -25,4 +25,11 @@ curl -X PUT http://localhost:3000/pagamentos/pagamento/id_do_pagamento
 # comando curl para consumir webservice do correio na rota definida pela aplicaçao
 curl -X POST http://localhost:3000/correios/calculo-prazo -H "Content-type: application/json" -d @files/dados-entrega.json
 
+# Requisição curl para enviar imagem do arquivo:
+curl -X POST http://localhost:3000/upload/imagem -v -H "Content-type: Application/octec-stream" -H "filename: imagem.jpg" --data-binary @imagem.jpg  
+
+# Requisição GET para consultar um pagamento com um id específico
+curl -X GET http://localhost:3000/pagamentos/pagamento/10 -v
+
+
 
