@@ -178,6 +178,10 @@ module.exports = function(app) {
                 return;
             }
             console.log('pagamento confirmado');
+            var memcachedclient = app.servicos.memcachedClient();
+            memcachedclient.set('pagamento-' + pagamento.id, pagamento, 100000, function(err) {
+                console.log('nova chave: pagamento-' + pagamento.id);
+            });
             res.send(pagamento);
         });
 
@@ -200,6 +204,10 @@ module.exports = function(app) {
                 return;
             }
             console.log('pagamento cancelado');
+            var memcachedclient = app.servicos.memcachedClient();
+            memcachedclient.set('pagamento-' + pagamento.id, pagamento, 100000, function(err) {
+                console.log('nova chave: pagamento-' + pagamento.id);
+            });
             res.send(pagamento).status(204);
         });
 
