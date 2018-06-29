@@ -13,20 +13,40 @@ module.exports = function(app) {
         var id = req.params.id;
         console.log('consultando pagamento: ' + id);
 
-        var connection = app.persistencia.connectionFactory();
-        var pagamentoDao = new app.persistencia.PagamentoDao(connection);
+        var memcachedclient = app.servicos.memcachedClient();
 
-        pagamentoDao.buscaPorId(id, function(erro, result) {
-            if (erro) {
-                console.log('erro ao consultar o banco: ' + erro);
-                res.status(500).send(erro);
+        memcachedclient.get('pagamento-' + id, function(erro, data) {
+
+            if (erro || !data) {
+                // console.log(erro);
+                // console.log(data);
+                console.log('MISS - chave não encontrada no cache.');
+
+                var connection = app.persistencia.connectionFactory();
+                var pagamentoDao = new app.persistencia.PagamentoDao(connection);
+
+                pagamentoDao.buscaPorId(id, function(erro, result) {
+                    if (erro) {
+                        console.log('erro ao consultar o banco: ' + erro);
+                        res.status(500).send(erro);
+                        return;
+                    }
+                    // console.log(result);
+                    console.log("Pagamento encontrado: " + JSON.stringify(result));
+                    res.send(result);
+                    return;
+                });
+
+
+            } else {
+                // HIT no cache
+                console.log('HIT - valor: ' + JSON.stringify(data));
+                res.json(data);
                 return;
             }
-            // console.log(result);
-            console.log("Pagamento encontrado: " + JSON.stringify(result));
-            res.send(result);
-            return;
         });
+
+
     })
 
     app.post('/pagamentos/pagamento', function(req, res) {
@@ -61,6 +81,12 @@ module.exports = function(app) {
                 pagamento.id = result.insertId;
                 // resposta no console da aplicação
                 console.log('pagamento criado');
+
+                var memcachedclient = app.servicos.memcachedClient();
+                memcachedclient.set('pagamento-' + pagamento.id, pagamento, 100000, function(err) {
+                    console.log('nova chave: pagamento-' + pagamento.id);
+                });
+
 
                 if (pagamento.forma_de_pagamento == "cartao") {
                     var cartao = req.body["cartao"];
