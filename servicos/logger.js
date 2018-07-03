@@ -1,6 +1,11 @@
 var winston = require('winston');
+var fs = require('fs');
 
-var logger = new winston.Logger({
+if (!fs.existsSync('logs')) {
+    fs.mkdirSync('logs');
+}
+
+module.exports = new winston.Logger({
     transports: [
         new winston.transports.File({
             level: "info",
@@ -12,5 +17,5 @@ var logger = new winston.Logger({
     ]
 });
 
-logger.log('info', 'Log forçando o nível info via parâmetro na função log().');
-logger.info('Log forçando o nível info via invocação direta função info()');
+// logger.log('info', 'Log forçando o nível info via parâmetro na função log().');
+// logger.info('Log forçando o nível info via invocação direta função info()');
