@@ -10,7 +10,7 @@ if (cluster.isMaster) {
     console.log('thread master');
 
     cpus.forEach(function() {
-        console.log('dentro do forEach');
+        // console.log('dentro do forEach');
         cluster.fork();
     });
 
